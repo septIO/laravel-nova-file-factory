@@ -6,7 +6,6 @@ import {BaseFileFactory} from "@pipe-dream/core/src";
 export default class LaravelNovaFileFactory extends BaseFileFactory {
     constructor(objectModelCollection) {
         super(objectModelCollection)
-        this.omc = objectModelCollection
     }
 
     static get title() {
