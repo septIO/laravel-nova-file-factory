@@ -1,15 +1,16 @@
 import defaultPreferences from './preferences/defaultSchema'
 import templates from './templates/compiledTemplates'
 import NovaResourcePipe from './pipes/NovaResource'
-import collect from "collect.js";
+import {BaseFileFactory} from "@pipe-dream/core/src";
 
-export default class LaravelNovaFileFactory {
+export default class LaravelNovaFileFactory extends BaseFileFactory {
     constructor(objectModelCollection) {
+        super(objectModelCollection)
         this.omc = objectModelCollection
     }
 
     static get title() {
-        return "Laravel Nova File Factory"
+        return "LaravelNovaFileFactory"
     }
 
     static templates() {
@@ -20,34 +21,13 @@ export default class LaravelNovaFileFactory {
         return require('../package.json').version
     }
 
-    static settings() {
-        return []
-    }
-
     static pipes() {
         return [
             NovaResourcePipe
         ]
     }
 
-    static from(objectModelCollection) {
-        return new this(objectModelCollection)
-    }
-
     static defaultPreferences() {
         return defaultPreferences
-    }
-
-    withPipes(pipes) {
-        this.pipes = pipes
-        return this
-    }
-
-    calculateFiles() {
-        return collect(this.pipes.map(pipe => {
-            return pipe.with(this.omc).calculateFiles(this.omc)
-        }).reduce((pipeFileList, allFiles) => {
-            return pipeFileList
-        }, [])).sortBy('path').toArray();
     }
 }
