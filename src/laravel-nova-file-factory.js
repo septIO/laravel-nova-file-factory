@@ -1,7 +1,7 @@
 import defaultPreferences from './preferences/defaultSchema'
 import templates from './templates/compiledTemplates'
 import NovaResourcePipe from './pipes/NovaResource'
-import {BaseFileFactory} from "@pipe-dream/core/src";
+import {BaseFileFactory} from "@pipe-dream/core";
 
 export default class LaravelNovaFileFactory extends BaseFileFactory {
     constructor(objectModelCollection) {
