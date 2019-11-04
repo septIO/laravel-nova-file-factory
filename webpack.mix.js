@@ -37,3 +37,4 @@ mix.webpackConfig({
 });
 
 mix.js('src/templates/index.js', 'src/templates/compiledTemplates.js')
+    .js('src/index.js', 'dist/index.js')

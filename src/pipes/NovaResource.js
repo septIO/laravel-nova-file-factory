@@ -30,7 +30,7 @@ export default class NovaResource extends ModelPipe {
         let attributes = model.attributes;
         console.log(typeof this.hiddenAttributes(model))
         attributes.forEach(attribute => {
-            if(this.hiddenAttributes(model).indexOf(attribute.name) !== -1 || attribute.name==="id")
+            if (this.hiddenAttributes(model).indexOf(attribute.name) !== -1 || attribute.name === "id")
                 return;
             Fields.push(`Fields\\${this.getNovaFieldForAttribute(attribute)}::make("${attribute.name}")`)
         })
@@ -63,14 +63,12 @@ export default class NovaResource extends ModelPipe {
             "Timezone": ["timezone"]
         }
 
-        return this.getObjectKeyFromArrayValue(novaFieldsWithAlias, attribute.name) ||
-            datatypeFieldKeyValuePairs[attribute.dataType]
-            || "Text"
+        let field = this.getObjectKeyFromArrayValue(novaFieldsWithAlias, attribute.properties.name) || datatypeFieldKeyValuePairs[attribute.properties.dataType] || "Text"
+        console.log(attribute, 'casts to', field)
+        return field
     }
 
     getObjectKeyFromArrayValue(obj, searchParam) {
-        console.log(searchParam)
-        Object.keys(obj).find(key => console.log(obj[key].includes(searchParam)))
         return Object.keys(obj).find(key => obj[key].includes(searchParam));
     }
 }
