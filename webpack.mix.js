@@ -13,7 +13,7 @@ const fs = require('fs');
  */
 
 mix.webpackConfig({
-    target: 'node',
+    target: 'web',
     output: { // make our template globally importable
         library: 'compiledTemplates',
         libraryTarget: 'umd',
