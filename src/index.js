@@ -1,2 +1,3 @@
 import LaravelNovaFileFactory from './laravel-nova-file-factory'
-export {LaravelNovaFileFactory};
+const LaravelNova = LaravelNovaFileFactory;
+export default LaravelNovaFileFactory
