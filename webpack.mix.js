@@ -13,11 +13,10 @@ const fs = require('fs');
  */
 
 mix.webpackConfig({
-    target: 'node',
+    target: 'web',
     output: { // make our template globally importable
         library: 'compiledTemplates',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
+        libraryTarget: 'umd'
     },
     module: {
         rules: [
@@ -37,3 +36,4 @@ mix.webpackConfig({
 });
 
 mix.js('src/templates/index.js', 'src/templates/compiledTemplates.js')
+    .js('src/index', 'dist')

@@ -1,8 +1,8 @@
 {
   "name": "laravel-nova-file-factory",
   "version": "0.0.2",
-  "description": "A file factory for PipeDream that created files for Laravel Nova",
-  "main": "src/index.js",
+  "description": "A file factory for PipeDream that creates files for Laravel Nova",
+  "main": "dist/index.js",
   "author": "Kasper Laukamp",
   "license": "MIT",
   "private": false,
@@ -16,7 +16,9 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "test": "echo 'no test implemented'"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0"
+  },
   "jest": {
     "moduleNameMapper": {
       "^@pipe-dream/(.*)$": "<rootDir>/node_modules/@pipe-dream/$1"

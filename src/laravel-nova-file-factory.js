@@ -1,11 +1,11 @@
-import defaultPreferences from './preferences/defaultSchema'
 import templates from './templates/compiledTemplates'
-import NovaResourcePipe from './pipes/NovaResource'
+import NovaResource from './pipes/NovaResource'
 import {BaseFileFactory} from "@pipe-dream/core";
+import defaultSchema from "./preferences/defaultSchema";
 
 export default class LaravelNovaFileFactory extends BaseFileFactory {
-    constructor(objectModelCollection) {
-        super(objectModelCollection)
+    constructor(omc){
+        super(omc)
     }
 
     static get title() {
@@ -22,11 +22,22 @@ export default class LaravelNovaFileFactory extends BaseFileFactory {
 
     static pipes() {
         return [
-            NovaResourcePipe
+            NovaResource
+        ]
+    }
+
+    static settings() {
+        return [
+            {
+                name: "useManyToManyPackage",
+                help: "Use 'https://packagist.org/packages/dillingham/nova-attach-many' for ManyToMany relationships",
+                value: false,
+                dataType: Boolean,
+            }
         ]
     }
 
     static defaultPreferences() {
-        return defaultPreferences
+        return defaultSchema;
     }
 }

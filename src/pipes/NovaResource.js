@@ -1,8 +1,10 @@
 import {Template} from "@pipe-dream/core";
 import ModelPipe from '@pipe-dream/laravel-file-factory/src/pipes/ModelPipe'
+import BasePipe from "@pipe-dream/laravel-file-factory/src/pipes/BasePipe";
 
 
 export default class NovaResource extends ModelPipe {
+
     static get title() {
         return "NovaResource"
     }
@@ -17,7 +19,7 @@ export default class NovaResource extends ModelPipe {
                 path: "App/Nova/" + model.className() + ".php",
                 content: Template.for('NovaResource.php').replace({
                     ___MODEL___: model.className(),
-                    ___NAMESPACE_MODEL___: "\\App\\" + model.className() + "::class",
+                    ___NAMESPACE_MODEL___: `\\${this.modelNamespace()}\\${model.className()}::class`,
                     ___NOVA_FIELDS_BLOCK___: this.getNovaFieldsForModel(model)
                 })
             }
@@ -28,7 +30,9 @@ export default class NovaResource extends ModelPipe {
         let ID = "Fields\\ID::make()->sortable()";
         let Fields = [ID];
         let attributes = model.attributes;
-        console.log(typeof this.hiddenAttributes(model))
+
+        console.log(attributes)
+
         attributes.forEach(attribute => {
             if(this.hiddenAttributes(model).indexOf(attribute.name) !== -1 || attribute.name==="id")
                 return;
@@ -54,7 +58,6 @@ export default class NovaResource extends ModelPipe {
             "DateTime": ["timestamp", "datetime"],
             "File": ["file"],
             "Gravatar": ["gravatar"],
-            "Heading": ["title", "heading"],
             "Image": ["image", "img"],
             "Markdown": ["markdown"],
             "Number": ["number"],
@@ -69,7 +72,6 @@ export default class NovaResource extends ModelPipe {
     }
 
     getObjectKeyFromArrayValue(obj, searchParam) {
-        console.log(searchParam)
         Object.keys(obj).find(key => console.log(obj[key].includes(searchParam)))
         return Object.keys(obj).find(key => obj[key].includes(searchParam));
     }
