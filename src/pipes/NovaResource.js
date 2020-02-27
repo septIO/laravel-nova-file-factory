@@ -31,14 +31,31 @@ export default class NovaResource extends ModelPipe {
         let Fields = [ID];
         let attributes = model.attributes;
 
-        console.log(attributes)
+        let relations = [];
+        model.relationships.belongsTo.forEach(rel => {
+            let str = `Fields\\BelongsTo::make("${rel.name}")`
+            relations.push(str)
+        })
+        model.relationships.belongsToMany.forEach(rel => {
+            let str = `Fields\\BelongsToMany::make("${rel.name}")`
+            relations.push(str)
+        })
+        model.relationships.hasOne.forEach(rel => {
+            let str = `Fields\\HasOne::make("${rel.name}")`
+            relations.push(str)
+        })
+        model.relationships.hasMany.forEach(rel => {
+            let str = `Fields\\HasMany::make("${rel.name}")`
+            relations.push(str)
+        })
 
         attributes.forEach(attribute => {
-            if(this.hiddenAttributes(model).indexOf(attribute.name) !== -1 || attribute.name==="id")
+            if(this.hiddenAttributes(model).indexOf(attribute.name) !== -1 || attribute.name==="id" || !attribute.properties.fillable || attribute.properties.foreign)
                 return;
             Fields.push(`Fields\\${this.getNovaFieldForAttribute(attribute)}::make("${attribute.name}")`)
         })
-        return Fields.join(',\n');
+        let ret = [...Fields, ...relations].join(',\n')
+        return ret;
     }
 
     getNovaFieldForAttribute(attribute) {
@@ -46,7 +63,8 @@ export default class NovaResource extends ModelPipe {
             "boolean": "Boolean",
             "timestamp": "DateTime",
             "string": "Text",
-            "text": "Trix"
+            "text": "Trix",
+            "integer": "Number"
         }
         const novaFieldsWithAlias = {
             "Avatar": ["avatar"],
@@ -65,10 +83,11 @@ export default class NovaResource extends ModelPipe {
             "Place": ["city", "place"],
             "Timezone": ["timezone"]
         }
-
-        return this.getObjectKeyFromArrayValue(novaFieldsWithAlias, attribute.name) ||
-            datatypeFieldKeyValuePairs[attribute.dataType]
+        let t = this.getObjectKeyFromArrayValue(novaFieldsWithAlias, attribute.name) ||
+            datatypeFieldKeyValuePairs[attribute.properties.dataType]
             || "Text"
+        //console.log(`${attribute.name}: ${attribute.properties.dataType} casts to ${t}`)
+        return t
     }
 
     getObjectKeyFromArrayValue(obj, searchParam) {
