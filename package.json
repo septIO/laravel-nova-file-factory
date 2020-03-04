@@ -1,6 +1,6 @@
 {
   "name": "laravel-nova-file-factory",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A file factory for PipeDream that creates files for Laravel Nova",
   "main": "dist/index.js",
   "PipeDream": "LaravelNovaFileFactory",
