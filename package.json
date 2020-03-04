@@ -1,8 +1,8 @@
 {
   "name": "laravel-nova-file-factory",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A file factory for PipeDream that creates files for Laravel Nova",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "PipeDream": "LaravelNovaFileFactory",
   "author": "Kasper Laukamp",
   "license": "MIT",
@@ -41,8 +41,8 @@
     ]
   },
   "dependencies": {
-    "@pipe-dream/core": "^1.0.4",
-    "@pipe-dream/laravel-file-factory": "^1.0.8",
+    "@pipe-dream/core": "^1.1.0",
+    "@pipe-dream/laravel-file-factory": "^1.1.0-b",
     "@vue/test-utils": "^1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.6.0",

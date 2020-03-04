@@ -33,18 +33,7 @@ export default class LaravelNovaFileFactory extends BaseFileFactory {
                 help: "Use 'https://packagist.org/packages/dillingham/nova-attach-many' for ManyToMany relationships",
                 value: false,
                 dataType: "boolean",
-                onChange: (val) => {
-                    if (val)
-                        window.store.dispatch('addDependency', {
-                            dependency: 'dillingham/nova-attach-many',
-                            factory: this
-                        })
-                    else
-                        window.store.dispatch('removeDependency', {
-                            dependency: 'dillingham/nova-attach-many',
-                            factory: this
-                        })
-                }
+
             }
         ]
     }

@@ -1,4 +1,4 @@
-import {Template} from "@pipe-dream/core";
+import {Template, Schema} from "@pipe-dream/core";
 import ModelPipe from '@pipe-dream/laravel-file-factory/src/pipes/ModelPipe'
 import BasePipe from "@pipe-dream/laravel-file-factory/src/pipes/BasePipe";
 
@@ -14,7 +14,8 @@ export default class NovaResource extends ModelPipe {
     }
 
     NovaResources() {
-        return this.omc.modelsIncludingUser().map(model => {
+        return Schema.refresh().models.map(model => {
+            console.log("Trying to generate Nova Resource for",model)
             return {
                 path: "App/Nova/" + model.className() + ".php",
                 content: Template.for('NovaResource.php').replace({

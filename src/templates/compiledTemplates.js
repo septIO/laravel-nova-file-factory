@@ -202,7 +202,7 @@ function hashCode (input) {
         hash |= 0; // Convert to 32bit integer
     }
     return hash;
-};
+}
 const templateHash = hashMap
 /* harmony default export */ __webpack_exports__["default"] = (templates);
 
